@@ -41,12 +41,18 @@ except ImportError:
     print("[warn] Install mermaid-py for auto-rendering: pip install mermaid-py")
 
 # --------- API key & Model ----------
-load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
-if not api_key:
-    raise ValueError("Oops! Add your OpenAI API key to a .env file as OPENAI_API_KEY=...")
+# UPDATED: Lazy load API key for Streamlit Cloud (from st.secrets or .env fallback)
+def get_api_key():
+    api_key = os.getenv("OPENAI_API_KEY")  # Local fallback
+    if not api_key and 'streamlit' in sys.modules:  # Cloud check
+        import streamlit as st
+        api_key = st.secrets.get("OPENAI_API_KEY", None)
+    if not api_key:
+        raise ValueError("❌ OpenAI API key missing! Add to .env (local) or secrets.toml (cloud).")
+    return api_key
 
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
+# Model (now uses lazy key)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2, api_key=get_api_key())  # Calls on init
 
 # --------- Prompts & Chains (Unchanged from Your Code) ----------
 parse_prompt = PromptTemplate(
