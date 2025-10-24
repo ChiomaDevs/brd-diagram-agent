@@ -1,0 +1,20 @@
+```mermaid
+graph TD
+  Start([Start]) --> IsUnallocated{Is Equipment Unallocated?}
+  IsUnallocated -->|Yes| ViewExport[Allow All Roles to View and Export]
+  IsUnallocated -->|No| IsBookingSubmitted{Is Booking Submitted?}
+  
+  IsBookingSubmitted -->|Yes| ApproveBooking[Equipment Manager Approves Booking]
+  IsBookingSubmitted -->|No| IsUsageDataEntered{Is Usage Data Entered?}
+  
+  IsUsageDataEntered -->|Yes| CheckUsageData[Check if Usage Hours and Diesel/Gas Used are Included]
+  IsUsageDataEntered -->|No| IsMaintenanceRequired{Is Maintenance Required?}
+  
+  CheckUsageData -->|Valid| GenerateReports[System Generates Reports]
+  CheckUsageData -->|Invalid| Error[Error: Missing Usage Data]
+  
+  IsMaintenanceRequired -->|Yes| UpdateSchedule[Workshop Manager Updates Maintenance Schedule]
+  IsMaintenanceRequired -->|No| End([End])
+  
+  End -->|Complete| ViewExport
+```

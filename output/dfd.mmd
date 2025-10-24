@@ -1,0 +1,11 @@
+```mermaid
+flowchart TD
+  A[User] -->|Submit Equipment Data| B[System]
+  A -->|Book Equipment| B
+  C[Workshop Manager] -->|Approve Bookings| B
+  D[Equipment Manager] -->|Enter Usage Data| B
+  B -->|Generate Reports| A
+  A -->|Update Maintenance Schedule| B
+  A -->|Select Reactive Maintenance| B
+  A -->|Repair and Close Query| B
+```

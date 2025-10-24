@@ -1,0 +1,43 @@
+```mermaid
+erDiagram
+  EQUIPMENT {
+    int id PK
+    string status
+  }
+  BOOKING {
+    int id PK
+    int equipment_id FK
+    string user_id FK
+    string status
+  }
+  USAGE_DATA {
+    int id PK
+    int equipment_id FK
+    int usage_hours
+    float diesel_gas_used
+  }
+  MAINTENANCE_SCHEDULE {
+    int id PK
+    int equipment_id FK
+    string schedule_details
+  }
+  REPORTS {
+    int id PK
+    int user_id FK
+    string report_details
+  }
+  USER_ROLES {
+    int id PK
+    string role_name
+  }
+
+  USER_ROLES ||--o{ EQUIPMENT : "views"
+  USER_ROLES ||--o{ BOOKING : "makes"
+  USER_ROLES ||--o{ USAGE_DATA : "enters"
+  USER_ROLES ||--o{ MAINTENANCE_SCHEDULE : "updates"
+  USER_ROLES ||--o{ REPORTS : "generates"
+  
+  EQUIPMENT ||--o{ BOOKING : "is booked"
+  EQUIPMENT ||--o{ USAGE_DATA : "has"
+  EQUIPMENT ||--o{ MAINTENANCE_SCHEDULE : "is scheduled for"
+```
