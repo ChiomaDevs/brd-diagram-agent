@@ -2,12 +2,12 @@ streamlit==1.38.0
 langchain==0.3.1
 langchain-openai==0.2.1
 langchain-core==0.3.7
-langchain-community==0.2.17
+langchain-community==0.3.2  # FIXED: Bump to match core 0.3.7
 python-dotenv==1.0.1
 pypdf2==3.0.1
 python-docx==1.1.2
 mermaid-py==0.6.0
-cairosvg==2.7.2
+cairosvg==2.7.1  # FIXED: Use available version (2.7.2 not in wheels)
 pytesseract==0.3.13
 pdf2image==1.17.0
 pillow==10.4.0
